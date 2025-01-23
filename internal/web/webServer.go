@@ -13,7 +13,7 @@ var Port string = os.Getenv("PORT")
 func WebServer() {
 	mux := http.NewServeMux()
 
-	// mux.HandleFunc("GET /msg/telegram", getUsers)
+	mux.HandleFunc("GET /healthcheck", v1.HealthCheck)
 	mux.HandleFunc("GET /msg/telegram/{uuid}", v1.GetMessageStatus)
 	mux.HandleFunc("POST /msg/telegram", v1.SendMessage)
 
