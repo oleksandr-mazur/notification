@@ -7,9 +7,9 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN go build -o /notification ./cmd/main
+RUN CGO_ENABLED=0 go build -o /notification ./cmd/main
 
-FROM scratch AS run
+FROM scratch
 
 COPY --from=build /notification /app/notification
 
