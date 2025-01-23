@@ -1,0 +1,9 @@
+pgdata
+README.md
+docker-compose.yaml
+deployments
+Dockerfile
+Makefile
+.git
+pkg
+Makefile
