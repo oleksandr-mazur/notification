@@ -5,7 +5,7 @@ package provider
 
 import (
 	"context"
-	"log"
+	"log/slog"
 	"os"
 	"os/signal"
 
@@ -32,15 +32,17 @@ func SendTelegram2(token string, clientID int64, msg string) error {
 
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
-		log.Panic(err)
+		slog.Error(err.Error())
+		panic(err)
 	}
 
-	bot.Debug = true
+	bot.Debug = false
 
-	log.Printf("Authorized on account %s", bot.Self.UserName)
-	message := tgbotapi.NewMessage(clientID, "Test 2")
+	slog.Info("Authorized on account " + bot.Self.UserName)
+	message := tgbotapi.NewMessage(clientID, msg)
 
 	bot.Send(message)
+	slog.Info("Send message to", slog.Any("client", clientID))
 
 	return nil
 }

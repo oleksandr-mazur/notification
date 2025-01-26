@@ -2,6 +2,7 @@ package v1
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -37,6 +38,7 @@ func SendMessage(w http.ResponseWriter, r *http.Request) {
 	var tMessage TelegramMSG
 
 	if error := json.NewDecoder(r.Body).Decode(&tMessage); error != nil {
+		slog.Warn("Invalid request payload")
 		json.NewEncoder(w).Encode(ResponceString{Message: "Invalid request payload", Status: 400})
 		return
 	}
